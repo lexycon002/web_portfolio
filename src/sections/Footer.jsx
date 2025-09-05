@@ -12,7 +12,7 @@ function Footer() {
         {/* Social Links */}
         <div className="flex space-x-6">
           <a
-            href="https://github.com/your-username"
+            href="https://github.com/lexycon002"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 dark:text-gray-400 hover:text-blue-500 transition-colors"
@@ -20,7 +20,7 @@ function Footer() {
             <FaGithub size={24} />
           </a>
           <a
-            href="https://linkedin.com/in/your-username"
+            href="https://www.linkedin.com/in/awowole-hammad-olamilekan/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 dark:text-gray-400 hover:text-blue-500 transition-colors"
@@ -28,7 +28,7 @@ function Footer() {
             <FaLinkedin size={24} />
           </a>
           <a
-            href="https://twitter.com/your-username"
+            href="https://x.com/_Lekshigh"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-500 dark:text-gray-400 hover:text-blue-400 transition-colors"
