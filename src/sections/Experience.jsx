@@ -3,8 +3,8 @@ import { useInView } from "react-intersection-observer";
 
 const experiences = [
   {
-    date: "April 2021 - Feb 2022",
-    role: "Intern",
+    date: "June 2025 - Till Date",
+    role: "Frontend Developer Intern",
     company: "CodeAlpha",
     details: [
       "Developed a fully functional To-Do List app using React.js: users can enter their name,upload a profile image, and manage tasks",
@@ -13,8 +13,8 @@ const experiences = [
     ],
   },
   {
-    date: "Aug 2017 - Nov 2018",
-    role: "Intern",
+    date: "June 2025 - August 2025",
+    role: "Frontend Developer Intern",
     company: "StaxTech",
     details: [
       "Built a Weather App that fetches live data for Nigerian states from a public API, displaying current conditions beautifully.",

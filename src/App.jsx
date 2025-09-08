@@ -9,7 +9,7 @@ import Contact from "./sections/Contact";
 import Experience from "./sections/Experience";
 import Skills from "./sections/Skills";
 import Footer from "./sections/Footer";
-import ChatWidget from "./sections/ChatWidget";
+// import ChatWidget from "./sections/ChatWidget";
 
 const SlideUp = ({ children }) => {
   return (
@@ -68,7 +68,7 @@ function App() {
 
       {/* Chat Widget */}
 
-      <ChatWidget />
+      {/* <ChatWidget /> */}
     </div>
   );
 }
