@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const skills = [
-  { name: "React", level: 80 },
-  { name: "JavaScript", level: 85 },
-  { name: "TailwindCSS", level: 80 },
+  { name: "Nextjs", level: 80 },
+  { name: "Reactjs", level: 90 },
+  { name: "JavaScript", level: 90 },
+  { name: "TailwindCSS", level: 85 },
   { name: "Git & GitHub", level: 80 },
   { name: "HTML & CSS", level: 95 },
   { name: "Adobe Illustrator", level: 80 },
+  { name: "Figma", level: 80 },
 ];
 
 function Skills() {
