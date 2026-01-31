@@ -40,52 +40,48 @@ function App() {
           if layout is "default" -> Show NORMAL Profile
           if layout is "frontend" -> Show SWITCHED Profile
       =============================================== */}
-      
       {layout === "default" ? (
         // ============================================
         // VIEW 1: NORMAL PORTFOLIO (The Default)
         // ============================================
-      <main>
+        <main>
           <section id="home">
             <Hero variant="default" />
           </section>
           <section id="about">
-            <SlideUp>
-              <About />
-            </SlideUp>      
+            <SlideUp><About /></SlideUp>      
           </section>
           <section id="projects">
-            <SlideUp>
-              <Projects />
-            </SlideUp>
+            <SlideUp><Projects /></SlideUp>
           </section>
           <section id="blog">
-            <SlideUp>
-              <Blog />
-            </SlideUp>
+            <SlideUp><Blog /></SlideUp>
           </section>
           <section id="skills">
-            <SlideUp>
-              <Skills />
-            </SlideUp>
+            <SlideUp><Skills /></SlideUp>
           </section>
           <section id="contact">
-            <SlideUp>
-              <Contact />
-            </SlideUp>
+            <SlideUp><Contact /></SlideUp>
           </section>
-    </main>
+        </main>
       ) : (
         // ============================================
         // VIEW 2: SWITCHED PORTFOLIO (Only via Chatbot)
         // ============================================
-       // SWITCHED MODE (Matches Navbar: Home, Skills, Blog Contact)
-        <main key="frontend-view" className="animate-in fade-in duration-500">
-          <section id="home"> <Hero variant="frontend" /> </section>
-          {/* Projects section REMOVED here to match Navbar */}
-          <section id="skills"> <SlideUp><Skills /></SlideUp> </section>
-          <section id="blog"> <SlideUp><Blog /></SlideUp> </section>
-          <section id="contact"> <SlideUp><Contact /></SlideUp> </section>
+        // HERO IS REMOVED HERE
+        <main key="frontend-view" className="pt-20 animate-in fade-in duration-500">
+          <section id="skills"> 
+            <SlideUp><Skills /></SlideUp> 
+          </section>
+          <section id="projects"> 
+            <SlideUp><Projects /></SlideUp> 
+          </section>
+          <section id="blog"> 
+            <SlideUp><Blog /></SlideUp> 
+          </section>
+          <section id="contact"> 
+            <SlideUp><Contact /></SlideUp> 
+          </section>
         </main>
       )}
 

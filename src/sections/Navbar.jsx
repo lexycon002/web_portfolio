@@ -6,13 +6,13 @@ import { motion } from "framer-motion";
 function Navbar({ layout }) {
   const { theme, toggleTheme } = useTheme();
 
-  // 1. DEFAULT PORTFOLIO MENUS (The initial 5)
-  const defaultLinks = ["home", "about", "projects", "skills", "blog", "contact"];
+ // 1. DEFAULT PORTFOLIO MENUS (The 6 initial ones)
+  const defaultLinks = ["home", "about", "skills", "projects", "blog", "contact"];
   
-  // 2. SWITCHED PORTFOLIO MENUS (Updated to match Chatbot exactly)
-  const switchedLinks = ["home", "skills", "blog", "contact"];
+  // 2. SWITCHED PORTFOLIO MENUS (Exactly 4 menus)
+  const switchedLinks = ["skills", "projects", "blog", "contact"];
 
-  // 3. LOGIC: If layout is 'default', show 5. If 'frontend', show 3.
+  // 3. LOGIC: If layout is 'default', show 6. If 'frontend', show 4.
   const navLinks = layout === "default" ? defaultLinks : switchedLinks;
 
   return (
