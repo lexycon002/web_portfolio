@@ -1,13 +1,12 @@
 import dotenv from "dotenv";
+import axios from "axios"; // REQUIRED: npm install axios
 dotenv.config();
 
 const API_KEY = process.env.GEMINI_API_KEY;
 const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
 
 // CONFIGURATION: USE YOUR VERIFIED MODELS
-// Primary: High intelligence
 const MODEL_PRIMARY = "gemini-2.0-flash"; 
-// Backup: High speed/reliability (From your allowed list)
 const MODEL_BACKUP = "gemini-2.0-flash-lite"; 
 
 // --- QUEUE SYSTEM ---
@@ -27,17 +26,31 @@ async function queuedGeminiCall(payload) {
 // --- ENGINE SWITCHING LOGIC ---
 async function attemptRequestWithFallback(payload) {
     try {
-        console.log(`🚀 Trying Primary Engine (${MODEL_PRIMARY})...`);
+        console.log(`Trying Primary Engine (${MODEL_PRIMARY})...`);
         const url = `${BASE_URL}/${MODEL_PRIMARY}:generateContent`;
         return await callGemini(url, payload);
     } catch (error) {
-        console.warn(`⚠️ Primary failed. Switching to Backup (${MODEL_BACKUP})...`);
-        
-        // Wait 1 second before switching to let API cool down
+        console.warn(`Primary failed. Switching to Backup (${MODEL_BACKUP})...`);
         await wait(1000);
-        
         const backupUrl = `${BASE_URL}/${MODEL_BACKUP}:generateContent`;
         return await callGemini(backupUrl, payload);
+    }
+}
+
+// --- NEW TOOL: REAL REVERSE GEOCODING (OpenStreetMap) ---
+// This prevents "Network Errors" by fetching the real address first
+async function getRealAddress(lat, lon) {
+    try {
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+        const res = await axios.get(url, { headers: { 'User-Agent': 'HammadPortfolio/1.0' } });
+        
+        if (res.data && res.data.display_name) {
+            return res.data.display_name;
+        }
+        return null;
+    } catch (error) {
+        console.error("Geocoding Error:", error.message);
+        return null;
     }
 }
 
@@ -63,35 +76,76 @@ export async function handleChat(userMessage, history, imageBase64, location) {
         const lowerMsg = userMessage.toLowerCase().trim();
 
         // ============================================================
-        // SAFE MODE INTERCEPTORS (Guaranteed Responses)
+        // 1. LOCATION SPECIAL HANDLER (THE FIX)
+        // ============================================================
+        // This catches the specific request from your frontend
+        if (lowerMsg.includes("exact location name based on these coordinates") && location) {
+            console.log("📍 Processing Location Lookup...");
+
+            // A. Get Real Data (OpenStreetMap)
+            let realAddress = await getRealAddress(location.latitude, location.longitude);
+            
+            // B. Fallback if OSM fails
+            if (!realAddress) {
+                realAddress = `Latitude ${location.latitude.toFixed(4)}, Longitude ${location.longitude.toFixed(4)}`;
+            }
+
+            // C. Feed Real Data to Gemini for "Hacker" Styling
+            const locationPrompt = `
+            SYSTEM DATA: The user is currently located at: "${realAddress}".
+            
+            YOUR TASK:
+            1. Report this location to the user.
+            2. Format it like a high-tech satellite lock-on message.
+            3. Keep it concise.
+            
+            Example Output:
+            > SATELLITE LOCK CONFIRMED.
+            > TARGET DETECTED: [Insert Address Here]
+            > STATUS: Verified.
+            `;
+            
+            const contents = [{ parts: [{ text: locationPrompt }] }];
+            
+            try {
+                const response = await queuedGeminiCall(contents);
+                return { reply: response };
+            } catch (e) {
+                // Final fallback if AI fails, just return the raw address
+                return { reply: `> SATELLITE DATA RAW: ${realAddress}` };
+            }
+        }
+
+        // ============================================================
+        // 2. SAFE MODE INTERCEPTORS (Guaranteed Responses)
         // ============================================================
         
-        // 1. Greetings
+        // Greetings
         if (["hi", "hello", "hey"].includes(lowerMsg)) {
             await wait(500);
             return { reply: "> CONNECTION_ESTABLISHED.\n\nGreetings. Ready for your command." };
         }
 
-        // 2. Status Check
+        // Status Check
         if (lowerMsg.includes("how are you")) {
             await wait(800); 
             return { reply: "> ASKING_MODE_ACTIVATED...\n\nI am functioning at 100% efficiency. Ready to serve." };
         }
         
-        // 3. Small Talk
+        // Small Talk
         if (lowerMsg.includes("i am fine") || lowerMsg === "good") {
              await wait(600);
              return { reply: "> ACKNOWLEDGED.\n\nExcellent. What is our next objective?" };
         }
 
-        // 4. IDENTITY / ORIGIN (Added this to fix your error)
+        // Identity
         if (lowerMsg.includes("where are you from") || lowerMsg.includes("who created you") || lowerMsg.includes("who made you")) {
             await wait(800);
             return { reply: "> ORIGIN_TRACE_COMPLETE...\n\nI am a custom AI architecture developed by **Hammad** to assist with portfolio operations. My core servers are distributed globally." };
         }
 
         // ============================================================
-        // REAL AI PROCESSING
+        // 3. REAL AI PROCESSING
         // ============================================================
 
         let locationContext = "";
@@ -129,7 +183,7 @@ Assistant:
 
         const contents = [{ parts: parts }];
 
-        console.log(`Processing...`);
+        console.log(`Processing General Query...`);
         const rawText = await queuedGeminiCall(contents);
         console.log("Response sent.");
 
