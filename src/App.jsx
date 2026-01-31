@@ -79,11 +79,12 @@ function App() {
         // ============================================
         // VIEW 2: SWITCHED PORTFOLIO (Only via Chatbot)
         // ============================================
-       // SWITCHED MODE (Matches Navbar: Home, Skills, Contact)
+       // SWITCHED MODE (Matches Navbar: Home, Skills, Blog Contact)
         <main key="frontend-view" className="animate-in fade-in duration-500">
           <section id="home"> <Hero variant="frontend" /> </section>
           {/* Projects section REMOVED here to match Navbar */}
           <section id="skills"> <SlideUp><Skills /></SlideUp> </section>
+          <section id="blog"> <SlideUp><Blog /></SlideUp> </section>
           <section id="contact"> <SlideUp><Contact /></SlideUp> </section>
         </main>
       )}
