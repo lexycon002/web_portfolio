@@ -1,16 +1,17 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "./sections/Navbar";
-import ScrollProgress from "./sections/ScrollProgress";
 import Background from "./sections/Background";
 import Projects from "./sections/Projects";
 import About from "./sections/About";
 import Hero from "./sections/Hero";
 import Contact from "./sections/Contact";
-import Experience from "./sections/Experience";
 import Skills from "./sections/Skills";
+import Blog from "./sections/Blog";
 import Footer from "./sections/Footer";
-// import ChatWidget from "./sections/ChatWidget";
+import ChatWidget from "./sections/ChatWidget"; 
 
+// Animation Helper
 const SlideUp = ({ children }) => {
   return (
     <motion.div
@@ -26,49 +27,81 @@ const SlideUp = ({ children }) => {
 };
 
 function App() {
- // min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-sans transition-colors duration-500
+  // 1. CRITICAL: Always start with "default" (Normal Profile)
+  const [layout, setLayout] = useState("default");
 
   return (
-    <div className="min-h-screen text-gray-900 dark:text-white font-sans transition-colors duration-500">
-      {/* Parallax Background */}
+    <div className="min-h-screen text-gray-900 dark:text-white font-sans transition-colors duration-500 relative">
       <Background />
-      {/* Scroll Progress Bar */}
-      <ScrollProgress />
+      <Navbar layout={layout} />
 
-      {/* Navbar */}
-      <Navbar />
-      {/* Hero Section */}
-      <Hero />
-      {/* About Section */}
-      <SlideUp>
-        <About />
-      </SlideUp>
+      {/* ==============================================
+          LAYOUT LOGIC
+          if layout is "default" -> Show NORMAL Profile
+          if layout is "frontend" -> Show SWITCHED Profile
+      =============================================== */}
+      
+      {layout === "default" ? (
+        // ============================================
+        // VIEW 1: NORMAL PORTFOLIO (The Default)
+        // ============================================
+      <main>
+          <section id="home">
+            <Hero variant="default" />
+          </section>
+          <section id="about">
+            <SlideUp>
+              <About />
+            </SlideUp>      
+          </section>
+          <section id="projects">
+            <SlideUp>
+              <Projects />
+            </SlideUp>
+          </section>
+          <section id="blog">
+            <SlideUp>
+              <Blog />
+            </SlideUp>
+          </section>
+          <section id="skills">
+            <SlideUp>
+              <Skills />
+            </SlideUp>
+          </section>
+          <section id="contact">
+            <SlideUp>
+              <Contact />
+            </SlideUp>
+          </section>
+    </main>
+      ) : (
+        // ============================================
+        // VIEW 2: SWITCHED PORTFOLIO (Only via Chatbot)
+        // ============================================
+       // SWITCHED MODE (Matches Navbar: Home, Skills, Contact)
+        <main key="frontend-view" className="animate-in fade-in duration-500">
+          <section id="home"> <Hero variant="frontend" /> </section>
+          {/* Projects section REMOVED here to match Navbar */}
+          <section id="skills"> <SlideUp><Skills /></SlideUp> </section>
+          <section id="contact"> <SlideUp><Contact /></SlideUp> </section>
+        </main>
+      )}
 
-      {/* Projects Section */}
-      <SlideUp>
-       <Projects />
-      </SlideUp>
-      {/* Skills Section */}
-      <SlideUp>
-       <Skills />
-      </SlideUp>
-      <SlideUp>
-        {/* Experience Section */}
-       <Experience />
-      </SlideUp>
-      {/* Contact Section */}
-      <SlideUp>
-       <Contact />
-      </SlideUp>
-
-      {/* Footer */}
       <SlideUp>
         <Footer />
       </SlideUp>
 
-      {/* Chat Widget */}
-
-      {/* <ChatWidget /> */}
+      {/* CHAT WIDGET: The Only Way to Trigger the Switch */}
+      <ChatWidget 
+        onAction={(action) => {
+          if (action?.type === "LAYOUT_SWITCH") {
+            console.log(" SWITCHING PORTFOLIO MODE...");
+            setLayout(action.layout); // This changes the state to "frontend"
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        }} 
+      />
     </div>
   );
 }

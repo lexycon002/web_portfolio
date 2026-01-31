@@ -6,7 +6,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'edu': ['"Edu NSW ACT Hand Pre"', 'cursive'],
+        'podkova': ['Podkova', 'serif'],
+      },
+    },
   },
   plugins: [],
 }

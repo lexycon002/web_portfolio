@@ -1,109 +1,123 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import emailjs from "emailjs-com";
-import "./contact.css"; // Import custom CSS for additional styling
+import { Check, X  } from 'lucide-react';
+
+import "./contact.css"; 
 
 function Contact() {
   const form = useRef();
   const [status, setStatus] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [isSending, setIsSending] = useState(false); // Fixed: consistent casing
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
+    setIsSending(true);
 
-    emailjs
-      .sendForm(
-        "service_ldgfzyk",   // service ID
-        "template_bxlnv7o",  // template ID
-        form.current,
-        "3PX2KpDEDu4wC77oG"   // user ID
-      )
-      .then(
-        () => {
-          setStatus("✅ Message sent successfully!");
-          setShowPopup(true);
-          form.current.reset();
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_name: form.current.user_name.value,
+          user_email: form.current.user_email.value,
+          message: form.current.message.value,
+        }),
+      });
 
-          // Auto-close popup after 3s
-          setTimeout(() => setShowPopup(false), 3000);
-        },
-        (error) => {
-          setStatus("❌ Failed to send message. Try again.");
-          console.error(error.text);
-        }
-      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("Message sent successfully!");
+        setShowPopup(true);
+        form.current.reset();
+        // Auto-close popup after 3s
+        setTimeout(() => setShowPopup(false), 3000);
+      } else {
+        setStatus(data.error || "Failed to send.");
+        setShowPopup(true); // Show error in the popup too
+        setTimeout(() => setShowPopup(false), 3000);
+      }
+    } catch (err) {
+      setStatus("Server is offline. Try again later.");
+      setShowPopup(true);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
-    <section id="contact" className=" max-w-4xl mx-auto px-6 mb-5">
-       <section
-          id="contact"
-          className="py-8 max-w-3xl mx-auto text-center space-y-6"
+    <section id="contact" className="max-w-4xl mx-auto px-6 mb-5">
+      <section className="py-8 max-w-3xl mx-auto text-center space-y-6">
+        <h2 className="text-4xl font-bold">Let’s Connect</h2>
+        <p className="text-gray-600 dark:text-gray-400">
+          Feel free to reach out for collaborations or just a friendly hello
+        </p>
+        <a
+          href="mailto:your@email.com"
+          className="inline-block px-6 py-3 rounded-full w-32 bg-indigo-600 font-semibold shadow-lg transition text-white"
         >
-          <h2 className="text-4xl font-bold">Let’s Connect</h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            Feel free to reach out for collaborations or just a friendly hello 👋
-          </p>
-          <a
-            href="mailto:your@email.com"
-            className="inline-block bg-indigo-500 hover:bg-indigo-600 px-6 py-3 rounded-full shadow-lg transition text-white"
-          >
-            Say Hello
-          </a>
-        </section>
+          Say Hello
+        </a>
+      </section>
+
       <form
         ref={form}
         onSubmit={sendEmail}
         className="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg"
       >
-         <div className="input-wrapper">
-        <input
-          type="text"
-          name="user_name"
-          placeholder="Your Name"
-          required
-          className="input-glow w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600"
-        />
-        </div>
-         <div className="input-wrapper">
-        <input
-          type="email"
-          name="user_email"
-          placeholder="Your Email"
-          required
-          className="input-glow w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600"
-        />
-        </div>
-         <div className="input-wrapper">
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows="5"
-          required
-          className="input-glow w-full h-32 p-3 resize-none  pt-2 rounded-lg border border-gray-300 dark:border-gray-600"
-        ></textarea>
+        <div className="input-wrapper">
+          <input
+            type="text"
+            name="user_name"
+            placeholder="Your Name"
+            required
+            className="w-full p-3 text-black rounded-lg border border-gray-300 dark:border-gray-600"
+          />
         </div>
         <div className="input-wrapper">
-        <button
-          type="submit"
-          className="input-glow w-full py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
-        >
-          Send Message
-        </button>
+          <input
+            type="email"
+            name="user_email"
+            placeholder="Your Email"
+            required
+            className="w-full p-3 rounded-lg text-black border border-gray-300 dark:border-gray-600"
+          />
+        </div>
+        <div className="input-wrapper">
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            required
+            className="w-full h-32 p-3 resize-none pt-2 rounded-lg border border-gray-300 dark:border-gray-600"
+          ></textarea>
+        </div>
+        <div className="input-wrapper">
+          <button
+            type="submit"
+            disabled={isSending} // Disable while sending
+            className={`w-full py-3 rounded-lg text-white font-semibold transition ${
+              isSending ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"
+            }`}
+          >
+            {isSending ? "Sending..." : "Send Message"}
+          </button>
         </div>
       </form>
 
-      {/* ✅ Animated Success Popup */}
+      {/* Animated Popup */}
       <AnimatePresence>
         {showPopup && (
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="fixed bottom-8 right-8 bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-2"
+            className={`fixed bottom-8 right-8 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-2 ${
+                status.includes("successfully") ? "bg-green-600" : "bg-red-600"
+            }`}
           >
-            <span className="text-lg">✅</span>
+            <span className="text-lg">{status.includes("successfully") ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}</span>
             <p className="font-medium">{status}</p>
           </motion.div>
         )}

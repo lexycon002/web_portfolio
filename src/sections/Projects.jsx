@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
-import MymusicImg from "../assets/music-app.png";
 import MealImg from "../assets/meal-app.png";
-import weatherImg from "../assets/weather-app.png";
-import TodolistImg from "../assets/todo-list.png";
-import CurrencyImg from "../assets/currency-converter.png";
+import FlowvaHubImg from "../assets/flowvahub.png";
+import SchoolImg from "../assets/school-management.png";
+import ElectroImg from "../assets/electronic-store.png";
+import LendSqrImg from "../assets/lend-sqr.png";
 import Web4smeImg from "../assets/web4sme-app.png";
-import { a } from "framer-motion/client";
 
 
 const containerVariants = {
@@ -25,50 +24,44 @@ const cardVariants = {
 function Projects() {
   const projects = [
     {
-      title: "Music App",
-      desc: "A music streaming app using Deezer API.",
-      img: MymusicImg,
-      demo: "https://code-alpha-music-playlist.vercel.app/",
-      code: "https://github.com/lexycon002/code_alpha_music_playlist",
-      stack: ["React", "CSS", "Deezer API"],
+      title: "Lendsqr Frontend Test",
+      desc: "A user-friendly dashboard for managing financial data.",
+      img: LendSqrImg,
+      code: "https://github.com/lexycon002/lendsqr-fe-test",
+      stack: ["React", "CSS", "JavaScript","Git","axios"],
     },
     {
       title: "Meal App LunchPad",
       desc: "A meal recipe app offering diverse recipes.",
       img: MealImg,
-      demo: "https://meal-app-h17w.vercel.app/",
       code: "https://github.com/lexycon002/meal-app",
       stack: ["React","CSS","JavaScript","Git","axios"],
     },
     {
-      title: "Weather App",
-      desc: "A sleek weather app using OpenWeatherMap API.",
-      img: weatherImg,
-      demo: "https://staxtech-project-weather-app.vercel.app/",
-      code: "https://github.com/lexycon002/staxtech-project-weather-app",
-      stack: ["React", "CSS","JavaScipt","OpenWeatherMap API","Git"],
+      title: "Electronic Store",
+      desc: "An e-commerce platform for electronic products.",
+      img: ElectroImg,
+      code: "https://github.com/lexycon002/electronic-store",
+      stack: ["Next.js", "Tailwind CSS","TypeScript","Git"],
     },
     {
-      title: "To-Do List App",
-      desc: "A simple and intuitive to-do list app.",
-      img: TodolistImg,
-      demo: "https://todo-list-app-one-kappa.vercel.app/",
-      code: "https://github.com/lexycon002/code_alpha_todo-list",
-      stack: ["React", "CSS", "JavaScript" ,"Git"],
+      title: "School Management System",
+      desc: "A school management system for efficient administration.",
+      img: SchoolImg,
+      code: "https://github.com/lexycon002/school-management",
+      stack: ["Next.js", "Tailwind CSS", "TypeScript" ,"Git"],
     },
     {
-      title: "Currency Converter App",
-      desc: "A real-time currency converter using ExchangeRate-API.",
-      img: CurrencyImg,
-      demo: "https://staxtech-project-currency-converter.vercel.app/",
-      code: "https://github.com/lexycon002/staxtech_project_currency_converter",
-      stack: ["React", "CSS", "ExchangeRate-API"],
+      title: "FlowvaHub",
+      desc: "A platform for sharing and discovering Work Tools",
+      img: FlowvaHubImg,
+      code: "https://github.com/lexycon002/flowvahub-assessment",
+      stack: ["React", "Tailwind CSS", "JavaScript","Git"],
     },
     {
       title: "Web for SME",
       desc: "A Small and Medium Enterprise website.",
       img: Web4smeImg,
-      demo: "https://web4sme.vercel.app/",
       code: "https://github.com/lexycon002/web4sme",
       stack: ["React", "CSS", "JavaScript","Git"],
     },
