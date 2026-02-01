@@ -139,7 +139,7 @@ function ChatWindow({ onClose, onAction }) {
             return;
         }
         if (lowerText === "3") {
-            setCommandType('SWITCH'); // This ensures layout logic is triggered later
+            setCommandType('SWITCH');
             setFlowState('ASK_NAME');
             setTimeout(() => typeBotResponse("> AUTHENTICATION REQUIRED (ADMIN).\n> PLEASE ENTER YOUR NAME:"), 500);
             return;
@@ -187,7 +187,7 @@ function ChatWindow({ onClose, onAction }) {
     : ['Home', 'About', 'Skills', 'Projects', 'Blog', 'Contact'];
 
   return (
-    <div className={`fixed bottom-12 right-6 w-85 md:w-96 z-[100] bg-black text-green-500 font-mono shadow-2xl rounded-lg overflow-hidden border border-green-800 transition-all ${isMinimized ? 'h-10' : 'h-[600px]'}`}>
+    <div className={`fixed w-96 right-1 bottom-12 md:w-96 z-[100] bg-black text-green-500 font-mono shadow-2xl rounded-lg overflow-hidden border border-green-800 transition-all ${isMinimized ? 'h-10' : 'h-[600px]'}`}>
       <div className="h-10 bg-gray-900 flex items-center justify-between px-3 border-b border-green-800 cursor-pointer" onClick={() => isMinimized && setIsMinimized(false)}>
         <div className="flex items-center gap-2 text-xs font-bold"><FaTerminal /><span>root@hammad-portfolio:~</span></div>
         <div className="flex items-center gap-3">
