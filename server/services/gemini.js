@@ -28,7 +28,7 @@ async function attemptRequestWithFallback(payload, useTools) {
 
     for (const modelName of engines) {
         try {
-            console.log(`🚀 Attempting Engine: ${modelName} (Tools: ${useTools})...`);
+            console.log(`Attempting Engine: ${modelName} (Tools: ${useTools})...`);
             const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
             
             // Only attach tools if specifically requested (Arithmetic only)
