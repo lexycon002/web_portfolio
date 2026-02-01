@@ -353,6 +353,9 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
+// --- API URL Configuration ---
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function ChatWindow({ onClose, onAction }) {
@@ -435,7 +438,7 @@ function ChatWindow({ onClose, onAction }) {
             const { latitude, longitude } = position.coords;
             await typeBotResponse(`> COORDINATES ACQUIRED: [${latitude.toFixed(4)}, ${longitude.toFixed(4)}]\n> RESOLVING ADDRESS...`, 20);
             try {
-                const res = await axios.post("http://localhost:5000/chat", {
+                const res = await axios.post(`${API_URL}/chat`, {
                     message: "What is my location?", 
                     location: { latitude, longitude }
                 });
@@ -516,7 +519,7 @@ function ChatWindow({ onClose, onAction }) {
     // --- ARITHMETIC / FALLBACK ---
     setIsTyping(true);
     try {
-      const res = await axios.post("http://localhost:5000/chat", { message: userText, history: messages });
+      const res = await axios.post(`${API_URL}/chat`, { message: userText, history: messages });
       setIsTyping(false);
       await typeBotResponse(res.data.reply, 30);
     } catch (err) {
@@ -531,7 +534,7 @@ function ChatWindow({ onClose, onAction }) {
     : ['Home', 'About', 'Skills', 'Projects', 'Blog', 'Contact'];
 
   return (
-    <div className={`fixed bottom-12 right-6 w-80 md:w-96 z-[100] bg-black text-green-500 font-mono shadow-2xl rounded-lg overflow-hidden border border-green-800 transition-all ${isMinimized ? 'h-10' : 'h-[600px]'}`}>
+    <div className={`fixed bottom-12 right-6 w-85 md:w-96 z-[100] bg-black text-green-500 font-mono shadow-2xl rounded-lg overflow-hidden border border-green-800 transition-all ${isMinimized ? 'h-10' : 'h-[600px]'}`}>
       <div className="h-10 bg-gray-900 flex items-center justify-between px-3 border-b border-green-800 cursor-pointer" onClick={() => isMinimized && setIsMinimized(false)}>
         <div className="flex items-center gap-2 text-xs font-bold"><FaTerminal /><span>root@hammad-portfolio:~</span></div>
         <div className="flex items-center gap-3">

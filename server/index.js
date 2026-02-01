@@ -17,10 +17,12 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/chat", chatRoute);
 app.use("/api/contact", ContactRoutes);
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only listen when running locally (not in Vercel serverless environment)
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT ? Number(process.env.PORT) : 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 export default app;
