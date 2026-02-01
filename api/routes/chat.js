@@ -1,5 +1,5 @@
 import express from "express";
-import { handleChat } from "../services/gemini.js"
+import { handleChat } from "../services/gemini.js";
 
 const router = express.Router();
 

@@ -5,7 +5,7 @@ import { Check, X  } from 'lucide-react';
 import "./contact.css"; 
 
 // --- API URL Configuration ---
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.MODE === 'production' ? "" : (import.meta.env.VITE_API_URL || "http://localhost:5000");
 
 function Contact() {
   const form = useRef();
@@ -93,7 +93,7 @@ function Contact() {
             placeholder="Your Message"
             rows="5"
             required
-            className="w-full h-32 p-3 resize-none pt-2 rounded-lg border border-gray-300 dark:border-gray-600"
+            className="w-full h-32 p-3 resize-none pt-2 rounded-lg border text-black border-gray-300 dark:border-gray-600"
           ></textarea>
         </div>
         <div className="input-wrapper">
