@@ -5,7 +5,6 @@ import FlowvaHubImg from "../assets/flowvahub.png";
 import SchoolImg from "../assets/school-management.png";
 import ElectroImg from "../assets/electronic-store.png";
 import LendSqrImg from "../assets/lend-sqr.png";
-import Web4smeImg from "../assets/web4sme-app.png";
 import flowdashImg from "../assets/flowdash.png";
 
 
@@ -65,13 +64,6 @@ function Projects() {
       img: FlowvaHubImg,
       code: "https://github.com/lexycon002/flowvahub-assessment",
       stack: ["React", "Tailwind CSS", "JavaScript","Git"],
-    },
-    {
-      title: "Web for SME",
-      desc: "A Small and Medium Enterprise website.",
-      img: Web4smeImg,
-      code: "https://github.com/lexycon002/web4sme",
-      stack: ["React", "CSS", "JavaScript","Git"],
     },
   ];
 
