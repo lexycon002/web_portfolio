@@ -6,6 +6,7 @@ import SchoolImg from "../assets/school-management.png";
 import ElectroImg from "../assets/electronic-store.png";
 import LendSqrImg from "../assets/lend-sqr.png";
 import Web4smeImg from "../assets/web4sme-app.png";
+import flowdashImg from "../assets/flowdash.png";
 
 
 const containerVariants = {
@@ -36,6 +37,13 @@ function Projects() {
       img: MealImg,
       code: "https://github.com/lexycon002/meal-app",
       stack: ["React","CSS","JavaScript","Git","axios"],
+    },
+    {
+      title: "Flowdash",
+      desc: "A dashboard for managing and visualizing data.",
+      img: flowdashImg,
+      code: "https://github.com/lexycon002/flowdash",
+      stack: ["React","CSS","JavaScript","Git"],
     },
     {
       title: "Electronic Store",
