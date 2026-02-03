@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const API_KEY = process.env.GEMINI_API_KEY;
-// using the stable 1.5 models to ensure zero crashes during your demo
+// using the stable 2.5 models to ensure zero crashes and better availability
 const MODEL_PRIMARY = "gemini-2.5-flash-lite"; 
 const MODEL_BACKUP = "gemini-3-flash-preview"; 
 
@@ -56,7 +56,7 @@ async function attemptRequestWithFallback(payload, useTools) {
             return parts.map(p => p.text || (p.executableCode ? "" : "")).join("").trim();
 
         } catch (error) {
-            console.warn(`⚠️ ${modelName} failed: ${error.message}`);
+            console.warn(` ${modelName} failed: ${error.message}`);
             if (error.message.includes("QUOTA")) continue; // Try next model
             throw error;
         }
@@ -96,8 +96,8 @@ YOUR MODES:
    - Identify the City, State, and Country.
    - Provide a brief interesting fact about that location (e.g., "Lagos is the economic hub of Nigeria").
 
-3. **GENERAL CHAT:** Be witty, professional, and maintain the "Hacker Terminal" persona.
-`;
+3. **GENERAL CHAT:** Be witty and professional, no long epistle.
+`
 
 export async function handleChat(userMessage, history, imageBase64, location) {
     try {

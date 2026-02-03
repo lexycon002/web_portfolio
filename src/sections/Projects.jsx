@@ -35,6 +35,7 @@ function Projects() {
       desc: "A meal recipe app offering diverse recipes.",
       img: MealImg,
       code: "https://github.com/lexycon002/meal-app",
+      // demo:"https://meal-app-h17w.vercel.app/",
       stack: ["React","CSS","JavaScript","Git","axios"],
     },
     {
@@ -42,6 +43,7 @@ function Projects() {
       desc: "A dashboard for managing and visualizing data.",
       img: flowdashImg,
       code: "https://github.com/lexycon002/flowdash",
+      // demo:"https://flowdash-coral.vercel.app/",
       stack: ["React","CSS","JavaScript","Git"],
     },
     {
