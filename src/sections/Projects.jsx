@@ -6,6 +6,7 @@ import SchoolImg from "../assets/school-management.png";
 import ElectroImg from "../assets/electronic-store.png";
 import LendSqrImg from "../assets/lend-sqr.png";
 import flowdashImg from "../assets/flowdash.png";
+import IkdrieveImg from "../assets/ikdrive.png";
 
 
 const containerVariants = {
@@ -23,6 +24,13 @@ const cardVariants = {
 
 function Projects() {
   const projects = [
+    {
+      title: "IkDrive",
+      desc: "A staff bus reservation system for a company, allowing employees to book bus rides.",
+      img: IkdrieveImg,
+      code: "https://github.com/lexycon002/ikdrive",
+      stack: ["React-Native", "JavaScript","TypeScript","Git","Expo", "Supabase"],
+    },
     {
       title: "Lendsqr Frontend Test",
       desc: "A user-friendly dashboard for managing financial data.",

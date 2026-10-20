@@ -6,7 +6,7 @@ function About() {
         <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
           <p className="">
             Hi I’m <span className="font-podkova text-indigo-600">Awowole Hammad Olamilekan</span>.
-            I am a Frontend Engineer dedicated to crafting digital experiences that are as
+            I am a Mobile and Web Application Engineer dedicated to crafting digital experiences that are as
             performant as they are visually striking. 
           </p>
 
@@ -17,6 +17,7 @@ function About() {
             business growth. I believe a website should be more than a digital business card, it 
             should be a fast, accessible, and intuitive tool that solves real-world problems.
           </p>
+          
 
           <p>
             With a deep focus on the modern web ecosystem, I handle the entire lifecycle of a 
