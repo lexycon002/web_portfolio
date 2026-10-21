@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import MealImg from "../assets/meal-app.png";
 import FlowvaHubImg from "../assets/flowvahub.png";
@@ -6,7 +6,7 @@ import SchoolImg from "../assets/school-management.png";
 import ElectroImg from "../assets/electronic-store.png";
 import LendSqrImg from "../assets/lend-sqr.png";
 import flowdashImg from "../assets/flowdash.png";
-import IkdrieveImg from "../assets/ikdrive.png";
+import IkdriveImg from "../assets/ikdrive.png";
 
 
 const containerVariants = {
@@ -27,7 +27,7 @@ function Projects() {
     {
       title: "IkDrive",
       desc: "A staff bus reservation system for a company, allowing employees to book bus rides.",
-      img: IkdrieveImg,
+      img: IkdriveImg,
       code: "https://github.com/lexycon002/ikdrive",
       stack: ["React-Native", "JavaScript","TypeScript","Git","Expo", "Supabase"],
     },
@@ -81,7 +81,7 @@ function Projects() {
     <section id="projects" className="py-32 max-w-6xl mx-auto px-6">
       <h2 className="text-4xl font-bold text-center mb-12">Projects</h2>
 
-      <motion.div
+      <Motion.div
         className="grid md:grid-cols-2 gap-8"
         variants={containerVariants}
         initial="hidden"
@@ -89,11 +89,11 @@ function Projects() {
         viewport={{ once: true, amount: 0.2 }}
       >
         {projects.map((p, i) => (
-          <motion.div key={i} variants={cardVariants}>
+          <Motion.div key={i} variants={cardVariants}>
             <ProjectCard {...p} />
-          </motion.div>
+          </Motion.div>
         ))}
-      </motion.div>
+      </Motion.div>
     </section>
   );
 }

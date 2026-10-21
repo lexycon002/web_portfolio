@@ -11,11 +11,15 @@ import CssImg from "../assets/cssImg.png"
 import TsImg from "../assets/TypeScript.png"
 
 const skills = [
-  { name: "Nextjs", icon: NextImg },
-  { name: "Reactjs", icon: ReactImg },
+  { name: "Next.js", icon: NextImg },
+  { name: "React", icon: ReactImg },
+  { name: "React Native", mark: "RN" },
+  { name: "Expo", mark: "EX" },
   { name: "JavaScript", icon: JsImg },
   { name: "TypeScript", icon: TsImg },
   { name: "TailwindCSS", icon: TailwindImg },
+  { name: "Supabase", mark: "SB" },
+  { name: "PostgreSQL", mark: "PG" },
   { name: "Git & GitHub", icon: GitImg },
   { name: "HTML", icon: Html5Img },
   { name: "CSS", icon: CssImg },
@@ -26,18 +30,27 @@ function Skills() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
 
   return (
-    <section ref={ref} id="skills" className="py-20 max-w-4xl mx-auto px-6">
+    <section ref={ref} id="skills" className="py-20 max-w-5xl mx-auto px-6">
       <h2 className="text-4xl font-bold text-center mb-10">Skills</h2>
 
       <div
-        className={`grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center justify-items-center transition-all duration-700 ${
+        className={`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6 items-center justify-items-center transition-all duration-700 ${
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
         {skills.map((skill, i) => (
           <div key={i} className="flex flex-col items-center">
             <div className="w-20 h-20 flex items-center justify-center bg-white dark:bg-gray-800 rounded-lg shadow-md p-3">
-              <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain" />
+              {skill.icon ? (
+                <img src={skill.icon} alt="" className="w-full h-full object-contain" />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="flex h-full w-full items-center justify-center rounded-md bg-indigo-50 text-lg font-bold text-indigo-600 dark:bg-indigo-400/10 dark:text-indigo-300"
+                >
+                  {skill.mark}
+                </span>
+              )}
             </div>
             <span className="mt-3 text-sm font-medium text-center">{skill.name}</span>
           </div>

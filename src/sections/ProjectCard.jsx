@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
 
@@ -13,7 +13,7 @@ function ProjectCard({ title, desc, img, demo, code, stack }) {
   };
 
   return (
-    <motion.div
+    <Motion.div
       onMouseMove={handleMouseMove}
       whileHover={{
         scale: 1.03,
@@ -25,7 +25,7 @@ function ProjectCard({ title, desc, img, demo, code, stack }) {
       className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden group"
     >
       {/* Cursor-follow Glow */}
-      <motion.div
+      <Motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{
           background: `radial-gradient(circle at ${position.x}% ${position.y}%, rgba(99,102,241,0.35), transparent 60%)`,
@@ -85,7 +85,7 @@ function ProjectCard({ title, desc, img, demo, code, stack }) {
           )}
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 }
 
